@@ -4,6 +4,8 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 
+import androidx.compose.material.icons.filled.DarkMode
+import androidx.compose.material.icons.filled.LightMode
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.*
@@ -27,7 +29,9 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 @Composable
 fun NewsScreen(
     viewModel: NewsViewModel = hiltViewModel(),
-    onArticleClick: (String) -> Unit
+    onArticleClick: (String) -> Unit,
+    onThemeToggle: () -> Unit,
+    isDarkTheme: Boolean
 ) {
     val articles: LazyPagingItems<Article> = viewModel.articles.collectAsLazyPagingItems()
     val searchQuery by viewModel.searchQuery.collectAsStateWithLifecycle()
@@ -37,6 +41,12 @@ fun NewsScreen(
             TopAppBar(
                 title = { Text("News App") },
                 actions = {
+                    IconButton(onClick = onThemeToggle) {
+                        Icon(
+                            imageVector = if (isDarkTheme) Icons.Default.LightMode else Icons.Default.DarkMode,
+                            contentDescription = "Toggle Theme"
+                        )
+                    }
                     IconButton(onClick = {
                         viewModel.getTopHeadlines()
                         articles.refresh()

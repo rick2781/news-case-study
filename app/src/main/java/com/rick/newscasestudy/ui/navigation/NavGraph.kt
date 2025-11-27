@@ -24,7 +24,10 @@ sealed class Screen(val route: String) {
 }
 
 @Composable
-fun NewsNavGraph() {
+fun NewsNavGraph(
+    onThemeToggle: () -> Unit,
+    isDarkTheme: Boolean
+) {
     val navController = rememberNavController()
 
     NavHost(navController = navController, startDestination = Screen.News.route) {
@@ -32,7 +35,9 @@ fun NewsNavGraph() {
             NewsScreen(
                 onArticleClick = { url ->
                     navController.navigate(Screen.Article.createRoute(url))
-                }
+                },
+                onThemeToggle = onThemeToggle,
+                isDarkTheme = isDarkTheme
             )
         }
         composable(
