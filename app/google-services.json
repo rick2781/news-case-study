@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "550225274422",
+    "project_id": "news-case-study",
+    "storage_bucket": "news-case-study.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:550225274422:android:28a7c4e7a9cac5e5bc5a97",
+        "android_client_info": {
+          "package_name": "com.rick.newscasestudy"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCiSvcKTS6870wY3k1A5pSZWz-n-_dw2kk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
