@@ -4,12 +4,13 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.getValue
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import com.rick.newscasestudy.ui.navigation.NewsNavGraph
 import com.rick.newscasestudy.ui.theme.NewsCaseStudyTheme
-import com.rick.newscasestudy.ui.theme.ThemeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -19,12 +20,12 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         
         setContent {
-            val themeViewModel: ThemeViewModel = hiltViewModel()
-            val isDarkTheme by themeViewModel.isDarkTheme.collectAsStateWithLifecycle()
+            val systemDarkTheme = isSystemInDarkTheme()
+            var isDarkTheme by rememberSaveable { mutableStateOf(systemDarkTheme) }
 
             NewsCaseStudyTheme(darkTheme = isDarkTheme) {
                 NewsNavGraph(
-                    onThemeToggle = { themeViewModel.toggleTheme() },
+                    onThemeToggle = { isDarkTheme = !isDarkTheme },
                     isDarkTheme = isDarkTheme
                 )
             }

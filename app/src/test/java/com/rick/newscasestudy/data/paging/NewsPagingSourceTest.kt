@@ -4,7 +4,6 @@ import androidx.paging.PagingSource
 import com.rick.newscasestudy.data.model.ArticleDto
 import com.rick.newscasestudy.data.model.NewsResponseDto
 import com.rick.newscasestudy.data.remote.NewsApi
-import com.rick.newscasestudy.model.Article
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.test.runTest
