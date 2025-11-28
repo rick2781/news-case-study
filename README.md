@@ -1,6 +1,6 @@
 # News Case Study
 
-A simple news app for the interview.
+A simple news app for the interview with the requested features plus animations, dark/light mode, analytics, unit testing.
 
 ## Features & Architecture
 <img width="400" alt="Image" src="https://github.com/user-attachments/assets/221f3ba2-80d2-45e1-a98d-eb6084fb62a3" /> <img width="400" alt="Image" src="https://github.com/user-attachments/assets/65949b7a-330b-4f75-b2a6-22a4ff8a55a3" />
