@@ -3,10 +3,6 @@ package com.rick.newscasestudy.ui.screens.news
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
-
-import androidx.compose.material.icons.filled.DarkMode
-import androidx.compose.material.icons.filled.LightMode
-import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -21,6 +17,7 @@ import androidx.paging.compose.itemContentType
 import androidx.paging.compose.itemKey
 
 import com.rick.newscasestudy.ui.components.ArticleItem
+import com.rick.newscasestudy.ui.components.NewsHeader
 import com.rick.newscasestudy.model.Article
 
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -36,32 +33,21 @@ fun NewsScreen(
     val articles: LazyPagingItems<Article> = viewModel.articles.collectAsLazyPagingItems()
     val searchQuery by viewModel.searchQuery.collectAsStateWithLifecycle()
 
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text("News App") },
-                actions = {
-                    IconButton(onClick = onThemeToggle) {
-                        Icon(
-                            imageVector = if (isDarkTheme) Icons.Default.LightMode else Icons.Default.DarkMode,
-                            contentDescription = "Toggle Theme"
-                        )
-                    }
-                    IconButton(onClick = {
-                        viewModel.getTopHeadlines()
-                        articles.refresh()
-                    }) {
-                        Icon(Icons.Default.Refresh, contentDescription = "Refresh")
-                    }
-                }
-            )
-        }
-    ) { paddingValues ->
+    Scaffold { paddingValues ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues)
         ) {
+            NewsHeader(
+                isDarkTheme = isDarkTheme,
+                onThemeToggle = onThemeToggle,
+                onRefresh = {
+                    viewModel.getTopHeadlines()
+                    articles.refresh()
+                }
+            )
+
             OutlinedTextField(
                 value = searchQuery,
                 onValueChange = {
@@ -74,7 +60,7 @@ fun NewsScreen(
                 },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(8.dp),
+                    .padding(horizontal = 16.dp, vertical = 8.dp),
                 placeholder = { Text("Search news by keword") },
                 leadingIcon = { Icon(Icons.Default.Search, contentDescription = null) },
                 singleLine = true
@@ -85,7 +71,8 @@ fun NewsScreen(
                     CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
                 } else {
                     LazyColumn(
-                        contentPadding = PaddingValues(bottom = 16.dp)
+                        contentPadding = PaddingValues(bottom = 16.dp),
+                        modifier = Modifier.fillMaxSize().padding(horizontal = 8.dp)
                     ) {
                         items(
                             count = articles.itemCount,
@@ -100,7 +87,6 @@ fun NewsScreen(
                                 )
                             }
                         }
-
 
                         if (articles.loadState.append is LoadState.Loading) {
                             item {

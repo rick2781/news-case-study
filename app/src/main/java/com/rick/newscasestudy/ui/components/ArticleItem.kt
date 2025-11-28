@@ -27,10 +27,11 @@ import java.util.Locale
 @Composable
 fun ArticleItem(
     article: Article,
-    onClick: (String) -> Unit
+    onClick: (String) -> Unit,
+    modifier: Modifier = Modifier
 ) {
     Card(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .padding(8.dp)
             .clickable { onClick(article.url) },
